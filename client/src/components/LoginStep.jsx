@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '../Shared/InputField/index';
 import Button from '../Shared/Button/index';
 
 const LoginStep = () => {
+    const [loginInputs, setLoginInputs] = useState({
+        userName: '',
+        password: ''
+    })
+    const loginInputHandler = () => {
+        console.log('loginInputs', loginInputs)
+    }
     return (
-        <div className='form'>
+        <div className='form' >
             <h1>Login</h1>
             <form>
-            <label for='uname'>UserName</label>
-                <Input name={'UserName'} className={'uname'} type={'text'} placeholder={'Enter Username...'}/>
-                <label for='password'>Password</label>
-                <Input name={'Password'} className={'Password'} type={'text'} placeholder={'Enter Password...'}/>
+                <label >UserName</label>
+                <Input name={'UserName'} className={'uname'} type={'text'} placeholder={'Enter Username...'} onChange={(e) => setLoginInputs({...loginInputs, userName: e.target.value})}/>
+                <label >Password</label>
+                <Input name={'Password'} className={'Password'} type={'password'} placeholder={'Enter Password...'} onChange={(e) => setLoginInputs({...loginInputs, password: e.target.value})}/>
             </form>
-            <Button className={'button'} type={'submit'}>Submit</Button>
+            <Button className={'button'} type={'submit'} onclick={loginInputHandler}>Submit</Button>
         </div>
     );
 };
