@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../Shared/Button/index";
 import Input from "../Shared/InputField/index";
-// const axios = require("axios");
+const axios = require("axios");
 
 const RegisterStep = () => {
   const [userInputs, setUserInputs] = useState({
@@ -24,6 +24,18 @@ const RegisterStep = () => {
     //   .then(function () {
     //     // always executed
     //   });
+
+    axios.post('/add', {
+      userName: userInputs.userName,
+      password: userInputs.password,
+      confirm_password: userInputs.confirmPassword
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
   return (
     <div className="form">
