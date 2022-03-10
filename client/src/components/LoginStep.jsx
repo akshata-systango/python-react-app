@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../Shared/InputField/index';
 import Button from '../Shared/Button/index';
+import { Link } from "react-router-dom";
 
 const LoginStep = () => {
     const [loginInputs, setLoginInputs] = useState({
@@ -13,6 +14,7 @@ const LoginStep = () => {
     return (
         <div className='form' >
             <h1>Login</h1>
+            <Link to={"/dashboard"}><h1><span>Dashboard</span></h1></Link>
             <form>
                 <label >UserName</label>
                 <Input name={'UserName'} className={'uname'} type={'text'} placeholder={'Enter Username...'} onChange={(e) => setLoginInputs({...loginInputs, userName: e.target.value})}/>
@@ -24,4 +26,4 @@ const LoginStep = () => {
     );
 };
 
-export default LoginStep;<h1>Login</h1>
+export default LoginStep;
