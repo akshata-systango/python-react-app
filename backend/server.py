@@ -60,10 +60,10 @@ def update_user(id):
 
 @app.route('/delete/<id>/', methods = ['DELETE'])
 def delete_user(id):
-    update_user = Register.query.get(id)
-    db.session.delete(update_user)
+    delete_user = Register.query.get(id)
+    db.session.delete(delete_user)
     db.session.commit()
-    return register_schema.jesonify(update_user)
+    return register_schema.jesonify(delete_user)
 
 if __name__ == "__main__":
     app.run(debug=True)
