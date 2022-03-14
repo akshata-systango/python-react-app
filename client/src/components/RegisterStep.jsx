@@ -10,33 +10,22 @@ const RegisterStep = () => {
     password: "",
     confirmPassword: "",
   });
-  const userInputHandler = () => {
-    console.log("userInput", userInputs);
-    // axios.get("/add")
-    //   .then(function (response) {
-    //     // handle success
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-    //   .then(function () {
-    //     // always executed
-    //   });
 
-    axios.post('/add', {
-      userName: userInputs.userName,
-      password: userInputs.password,
-      confirm_password: userInputs.confirmPassword
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const userInputHandler = () => {
+    axios
+      .post("/add", {
+        userName: userInputs.userName,
+        password: userInputs.password,
+        confirm_password: userInputs.confirmPassword,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
+
   return (
     <div className="form">
       <h1>Register</h1>
