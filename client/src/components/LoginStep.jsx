@@ -4,14 +4,18 @@ import Button from "../Shared/Button/index";
 import { Link } from "react-router-dom";
 const axios = require("axios");
 
+const isEmpty = (value) => value.trim() === "";
+const isSixChars = (value) => value.trim().length === 6;
+
 const LoginStep = () => {
-  const [users, setAllUser] = useState();
+  const [users, setAllUser] = useState({
+    isUsernameValid: "",
+    isPasswordValid: "",
+  });
   const [loginInputs, setLoginInputs] = useState({
     userName: "",
     password: "",
   });
-
-  console.log('users', users)
 
   useEffect(() => {
     axios.get("/get").then(function (response) {
@@ -20,7 +24,11 @@ const LoginStep = () => {
     });
   }, []);
 
-  const loginInputHandler = () => {};
+  const loginInputHandler = () => {
+    const validUsername = !isEmpty(loginInputs.userName);
+    const validPassword = !isSixChars(loginInputs.password);
+    setAllUser({ userName: validUsername, password: validPassword });
+  };
   return (
     <div className="form">
       <h1>Login</h1>
@@ -36,6 +44,7 @@ const LoginStep = () => {
             setLoginInputs({ ...loginInputs, userName: e.target.value })
           }
         />
+        {!users.isUsernameValid && <p>Please enter valid username</p>}
         <label>Password</label>
         <Input
           name={"Password"}
@@ -46,6 +55,7 @@ const LoginStep = () => {
             setLoginInputs({ ...loginInputs, password: e.target.value })
           }
         />
+        {!users.isPasswordValid && <p>Please enter valid password</p>}
       </form>
       <Link to={"/dashboard"}>
         <Button

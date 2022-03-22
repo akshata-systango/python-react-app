@@ -1,17 +1,21 @@
-from logging import root
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/python_react_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/user.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+cors = CORS()
+
+app.app_context().push()
+db.create_all()
 
 class Register(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     userName = db.Column(db.String(100))
     password = db.Column(db.String(100))
     confirm_password = db.Column(db.String(100))
@@ -25,16 +29,19 @@ class Register_schema(ma.Schema):
     class Meta:
         fields = ('id', 'userName', 'password', 'confirm_password')
 
+
 register_schema = Register_schema()
 registers_schema = Register_schema(many=True)
 
-@app.route('/get', methods = ['GET'])
+
+@app.route('/get', methods=['GET'])
 def get_users():
     all_users = Register.query.all()
     results = registers_schema.dump(all_users)
     return jsonify(results)
 
-@app.route('/add', methods = ['POST'])
+
+@app.route('/add', methods=['POST'])
 def add_user():
     userName = request.json['userName']
     password = request.json['password']
@@ -46,7 +53,8 @@ def add_user():
 
     return register_schema.jsonify(register)
 
-@app.route('/update/<id>/', methods = ['PUT'])
+
+@app.route('/update/<id>/', methods=['PUT'])
 def update_user(id):
     user = Register.query.get(id)
 
@@ -59,7 +67,8 @@ def update_user(id):
     db.session.commit()
     return register_schema.jesonify(user)
 
-@app.route('/delete/<id>/', methods = ['DELETE'])
+
+@app.route('/delete/<id>/', methods=['DELETE'])
 def delete_user(id):
     delete_user = Register.query.get(id)
     db.session.delete(delete_user)
