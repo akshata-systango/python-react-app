@@ -61,7 +61,7 @@ const RegisterStep = () => {
           }
         />
       </form>
-      <Button className={"button"} type={"submit"} onclick={userInputHandler}>
+      <Button className={"button"} type={"submit"} onclick={userInputHandler} disabled={disabled}>
         Submit
       </Button>
       <p>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import backButton from "../Assets/icons/backbutton.png";
+
 import Input from "../Shared/InputField/index";
 import Button from "../Shared/Button/index";
 import { Link } from "react-router-dom";
@@ -24,6 +26,11 @@ const LoginStep = () => {
     });
   }, []);
 
+  const nevigationBackHandler = () => {
+    // history.push("/login");
+    console.log("lets see");
+  };
+
   const loginInputHandler = () => {
     const validUsername = !isEmpty(loginInputs.userName);
     const validPassword = !isSixChars(loginInputs.password);
@@ -31,7 +38,14 @@ const LoginStep = () => {
   };
   return (
     <div className="form">
-      <h1>Login</h1>
+      <div className="flex_container">
+        <span>
+          <Button className={"backIconButton"} onclick={nevigationBackHandler}>
+            <img src={backButton} className="backIcon" />
+          </Button>
+        </span>
+        <h1 className="heading">Login</h1>
+      </div>
 
       <form>
         <label>UserName</label>
@@ -62,6 +76,7 @@ const LoginStep = () => {
           className={"button"}
           type={"submit"}
           onclick={loginInputHandler}
+
         >
           Submit
         </Button>

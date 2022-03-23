@@ -109,3 +109,11 @@ tr:nth-child(even) {
 .flex_container{
   display: flex;
 }
+.backIcon{
+  height: 25px;
+  width: 25px;
+}
+.backIconButton{
+  background-color: white;
+  border-color: white;
+}

@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
+import backButton from "../Assets/icons/backbutton.png";
+// import { useHistory } from "react-router-dom";
+
 import Button from "../Shared/Button/index";
 const axios = require("axios");
 
 const Dashboard = () => {
   const [users, setAllUser] = useState();
+
+  const nevigationBackHandler = () => {
+    // history.push("/login");
+    console.log("lets see")
+  };
 
   useEffect(() => {
     axios.get("/get").then(function (response) {
@@ -18,7 +26,14 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2 className="heading">Dashboard</h2>
+      <div className="flex_container">
+        <span>
+          <Button className={"backIconButton"} onclick={nevigationBackHandler}>
+            <img src={backButton} className="backIcon" />
+          </Button>
+        </span>
+        <h2 className="heading">Dashboard</h2>
+      </div>
 
       <table>
         <thead>
@@ -35,19 +50,20 @@ const Dashboard = () => {
               <td>{item.id}</td>
               <td>{item.userName}</td>
               <td>{item.password}</td>
-              <td><span className="flex_container">
-                <Button
-                  className={"button"}
-                  onClick={() => deleteUserHandler}
-                >
-                  Delete
-                </Button>
-                <Button className={"button"}>Edit</Button>
-              </span></td>
+              <td>
+                <span className="flex_container">
+                  <Button
+                    className={"button"}
+                    onclick={() => deleteUserHandler}
+                  >
+                    Delete
+                  </Button>
+                  <Button className={"button"}>Edit</Button>
+                </span>
+              </td>
             </tr>
           ))}
         </tbody>
-
       </table>
     </div>
   );
